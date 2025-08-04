@@ -1,492 +1,2446 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eloscope - Extração Inteligente de Dados</title>
+    <title>Eloscope - Agência de IA para Vendas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --cyan: #22D3EE;
+            --purple: #C084FC;
+            --dark-bg: #0A0B14;
+            --card-bg: #1A1B2E;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-bg);
+            color: #E2E8F0;
+            overflow-x: hidden;
+        }
+        
+        .mesh-gradient-bg {
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: -1;
+            background: radial-gradient(ellipse at top, rgba(34, 211, 238, 0.1) 0%, transparent 50%),
+                        radial-gradient(ellipse at bottom, rgba(192, 132, 252, 0.1) 0%, transparent 50%);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, var(--cyan) 0%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .btn-gradient {
+            background: linear-gradient(135deg, var(--cyan) 0%, var(--purple) 100%);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-gradient:hover::before {
+            left: 100%;
+        }
+        
+        .btn-gradient:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(34, 211, 238, 0.3); 
+        }
+        
+        [data-aos] {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        
+        .aos-animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .header-scrolled {
+            background-color: rgba(10, 11, 20, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        /* Professional Section Styles */
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Grid Background Pattern */
+        .grid-bg {
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0A0A0A 0%, #0A0A0A 50%, #1a1a1a 100%);
+        /* SEPARAÇÃO VISUAL ENTRE SEÇÕES */
+        
+        /* Seção Hero - Background principal */
+        .hero-section {
+            background: linear-gradient(135deg, rgba(10, 11, 20, 1) 0%, rgba(26, 27, 46, 0.8) 100%);
+            position: relative;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-            color: #FFFFFF;
         }
 
-        .container {
-            width: 100%;
-            max-width: 800px;
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 30% 20%, rgba(34, 211, 238, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(192, 132, 252, 0.15) 0%, transparent 50%);
+            pointer-events: none;
         }
 
-        .header {
-            text-align: center;
+        /* Seção Companies - Transição suave */
+        .companies-section {
+            background: linear-gradient(180deg, rgba(10, 11, 20, 1) 0%, rgba(15, 16, 25, 0.95) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        .companies-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(34, 211, 238, 0.3) 50%, transparent 100%);
+        }
+
+        /* Seção Solução - Background alternado */
+        .solucao-section {
+            background: linear-gradient(135deg, rgba(15, 16, 25, 0.98) 0%, rgba(26, 27, 46, 0.9) 100%);
+            position: relative;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .solucao-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(34, 211, 238, 0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, rgba(192, 132, 252, 0.06) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        /* Seção Problema - Background contrastante */
+        .problema-section {
+            background: linear-gradient(135deg, rgba(10, 11, 20, 0.98) 0%, rgba(20, 21, 35, 0.95) 100%);
+            position: relative;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .problema-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 60% 30%, rgba(239, 68, 68, 0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at 40% 70%, rgba(34, 211, 238, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        /* Divisor Decorativo */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(34, 211, 238, 0.4) 20%, rgba(192, 132, 252, 0.4) 80%, transparent 100%);
+            margin: 0 auto;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .section-divider::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            background: linear-gradient(135deg, var(--cyan) 0%, var(--purple) 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(34, 211, 238, 0.5);
+        }
+
+        /* Seção Pilares - Background premium */
+        .pilares-section {
+            background: linear-gradient(135deg, rgba(15, 16, 25, 0.98) 0%, rgba(26, 27, 46, 0.9) 100%);
+            position: relative;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .pilares-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 25% 25%, rgba(34, 211, 238, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 75% 75%, rgba(192, 132, 252, 0.06) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        /* Seção Processo - Background diferenciado */
+        .processo-section {
+            background: linear-gradient(135deg, rgba(10, 11, 20, 0.95) 0%, rgba(26, 27, 46, 0.8) 100%);
+            position: relative;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .processo-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(34, 211, 238, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* Seção Dashboard - Background tecnológico */
+        .dashboard-section {
+            background: linear-gradient(135deg, rgba(15, 16, 25, 0.98) 0%, rgba(26, 27, 46, 0.9) 100%);
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .dashboard-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(34, 211, 238, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 50%, rgba(192, 132, 252, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        /* Seção FAQ - Background final */
+        .faq-section {
+            background: linear-gradient(135deg, rgba(10, 11, 20, 0.95) 0%, rgba(26, 27, 46, 0.8) 100%);
+            position: relative;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .faq-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(34, 211, 238, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* Footer - Transição final */
+        .footer-section {
+            background: linear-gradient(135deg, rgba(5, 6, 10, 1) 0%, rgba(15, 16, 25, 0.98) 100%);
+            border-top: 2px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+        }
+
+        .footer-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(34, 211, 238, 0.4) 50%, transparent 100%);
+        }
+
+        /* Espaçamentos Generosos */
+        .section-spacing {
+            padding: 6rem 0;
+        }
+
+        .section-spacing-lg {
+            padding: 8rem 0;
+        }
+
+        .section-spacing-xl {
+            padding: 10rem 0;
+        }
+
+        /* Títulos com margem inferior clara */
+        .section-title {
             margin-bottom: 2rem;
         }
 
-        .header-icon {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 1rem;
+        .section-title-lg {
+            margin-bottom: 3rem;
         }
 
-        .globe-icon {
-            width: 32px;
-            height: 32px;
-            color: #00FFFF;
+        .section-subtitle {
+            margin-bottom: 4rem;
         }
 
-        .main-title {
-            font-size: 2.5rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, #00FFFF, #FF00FF, #00FF00);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
+        /* Responsive - Mobile */
+        @media (max-width: 768px) {
+            .section-spacing {
+                padding: 4rem 0;
+            }
+            .section-spacing-lg {
+                padding: 5rem 0;
+            }
+            .section-spacing-xl {
+                padding: 6rem 0;
+            }
+            .section-title {
+                margin-bottom: 1.5rem;
+            }
+            .section-title-lg {
+                margin-bottom: 2rem;
+            }
+            .section-subtitle {
+                margin-bottom: 3rem;
+            }
+        }
+        
+        /* BLOCO 4: OS 5 PILARES - ESTRUTURA CORRIGIDA COM PARALLAX */
+        .pillar-section {
+            padding: 6rem 0;
+            position: relative;
+            min-height: 400vh; /* Altura maior para permitir scroll e parallax */
         }
 
-        .subtitle {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1.1rem;
+        .pillars-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
 
-        .form-card {
-            background: rgba(10, 10, 10, 0.9);
-            border: 2px solid rgba(0, 255, 255, 0.2);
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 25px 50px rgba(0, 255, 255, 0.1);
-            overflow: hidden;
-        }
-
-        .card-header {
-            text-align: center;
-            padding: 2rem 2rem 1rem;
-        }
-
-        .card-title {
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 0.5rem;
-        }
-
-        .search-icon {
-            width: 24px;
-            height: 24px;
-            color: #00FF00;
-        }
-
-        .card-description {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .card-content {
-            padding: 1rem 2rem 2rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-row {
+        /* CARDS DOS PILARES - ESTRUTURA NORMAL COM PARALLAX */
+        .pillar-card {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        @media (max-width: 768px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-            .main-title {
-                font-size: 2rem;
-            }
-        }
-
-        .form-label {
-            display: flex;
+            gap: 4rem;
             align-items: center;
-            gap: 8px;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-            color: #FFFFFF;
-        }
-
-        .map-icon {
-            width: 16px;
-            height: 16px;
-            color: #FF00FF;
-        }
-
-        .form-input, .form-select {
-            width: 100%;
-            padding: 12px 16px;
-            background: rgba(10, 10, 10, 0.5);
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            border-radius: 8px;
-            color: #FFFFFF;
-            font-size: 16px;
+            padding: 3rem;
+            margin-bottom: 4rem;
+            background: rgba(26, 27, 46, 0.4);
+            border: 1px solid var(--border);
+            border-radius: 2rem;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
             transition: all 0.3s ease;
+            position: relative;
+            
+            /* CONFIGURAÇÃO INICIAL PARA ANIMAÇÃO */
+            opacity: 0;
+            transform: translateY(80px);
+            will-change: transform;
         }
 
-        .form-input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
+        /* ESTADO VISÍVEL */
+        .pillar-card.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .form-input:focus, .form-select:focus {
-            outline: none;
-            border-color: #00FFFF;
-            box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.2);
+        /* Z-INDEX PARA SOBREPOSIÇÃO CORRETA NO PARALLAX */
+        .pillar-card[data-pillar="1"] { z-index: 1; }
+        .pillar-card[data-pillar="2"] { z-index: 2; }
+        .pillar-card[data-pillar="3"] { z-index: 3; }
+        .pillar-card[data-pillar="4"] { z-index: 4; }
+        .pillar-card[data-pillar="5"] { z-index: 5; }
+
+        /* Hover aprimorado */
+        .pillar-card:hover {
+            background: rgba(26, 27, 46, 0.6);
+            border-color: rgba(34, 211, 238, 0.4);
+            box-shadow: 0 35px 70px rgba(34, 211, 238, 0.2);
+            transform: translateY(-8px) scale(1.02);
         }
 
-        .form-select {
-            cursor: pointer;
+        .pillar-text {
+            space-y: 1.5rem;
         }
 
-        .form-select option {
-            background: #0A0A0A;
-            color: #FFFFFF;
+        .pillar-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+            line-height: 1.3;
         }
 
-        .submit-btn {
+        .pillar-description {
+            color: #94A3B8;
+            line-height: 1.7;
+            font-size: 1.125rem;
+        }
+
+        .pillar-image {
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+        }
+
+        .pillar-image img {
             width: 100%;
-            padding: 16px;
-            background: linear-gradient(45deg, #00FFFF, #FF00FF);
-            border: none;
-            border-radius: 8px;
-            color: #0A0A0A;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .submit-btn:hover:not(:disabled) {
-            background: linear-gradient(45deg, rgba(0, 255, 255, 0.8), rgba(255, 0, 255, 0.8));
-            transform: scale(1.02);
-        }
-
-        .submit-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .loading-spinner {
-            width: 20px;
-            height: 20px;
-            border: 2px solid transparent;
-            border-top: 2px solid #0A0A0A;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 2rem;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
-        }
-
-        .footer-highlight {
-            background: linear-gradient(45deg, #00FF00, #00FFFF);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 600;
-        }
-
-        .toast {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 16px 24px;
-            border-radius: 8px;
-            color: #FFFFFF;
-            font-weight: 500;
-            z-index: 1000;
-            transform: translateX(400px);
+            height: 100%;
+            object-fit: cover;
             transition: transform 0.3s ease;
         }
 
-        .toast.show {
-            transform: translateX(0);
+        .pillar-card:hover .pillar-image img {
+            transform: scale(1.05);
+        }
+        
+        /* Reverse layout for alternating cards */
+        .pillar-card.reverse {
+            direction: rtl;
+        }
+        
+        .pillar-card.reverse > * {
+            direction: ltr;
+        }
+        
+        /* Logo Animation */
+        .logo-animation {
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 5px rgba(34, 211, 238, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(34, 211, 238, 0.6), 0 0 30px rgba(192, 132, 252, 0.3); }
+        }
+        
+        /* Hero Section */
+        .hero-title {
+            text-shadow: 0 0 30px rgba(34, 211, 238, 0.3);
+        }
+        
+        /* Companies Section */
+        .companies-text {
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(34, 211, 238, 0.8) 20%, 
+                rgba(192, 132, 252, 0.8) 80%, 
+                transparent 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Responsive - Mobile First */
+        @media (max-width: 768px) {
+            .section-container {
+                padding: 0 1rem;
+            }
+            
+            .pillar-section {
+                padding: 4rem 0;
+                min-height: auto; /* Remove altura fixa no mobile */
+            }
+            
+            .pillar-card {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 2rem;
+                margin-bottom: 2rem;
+            }
+            
+            .pillar-card.reverse {
+                direction: ltr;
+            }
+            
+            /* Z-index simplificado para mobile */
+            .pillar-card:nth-child(n) {
+                z-index: auto;
+            }
+            
+            .pillar-title {
+                font-size: 1.5rem;
+            }
+            
+            .pillar-description {
+                font-size: 1rem;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+                line-height: 1.1;
+            }
         }
 
-        .toast.success {
-            background: linear-gradient(45deg, #00FF00, #00FFFF);
-            color: #0A0A0A;
+        /* Card Problem Styles */
+        .card-problem {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(26, 27, 46, 0.8) 100%);
+            border: 1px solid var(--border);
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            padding: 2rem;
+            border-radius: 1rem;
         }
 
-        .toast.error {
-            background: linear-gradient(45deg, #FF0000, #FF00FF);
+        .card-problem::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--cyan), var(--purple));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
         }
 
-        .form-input:invalid {
-            border-color: rgba(255, 0, 0, 0.5);
+        .card-problem:hover::before {
+            transform: scaleX(1);
         }
 
-        .form-input:valid {
-            border-color: rgba(0, 255, 0, 0.3);
+        .card-problem:hover {
+            transform: translateY(-8px);
+            background: linear-gradient(135deg, #1a1d2e 0%, rgba(26, 29, 46, 0.9) 100%);
+            border-color: rgba(34, 211, 238, 0.4);
+            box-shadow: 0 20px 40px rgba(34, 211, 238, 0.1);
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(26, 27, 46, 0.8) 100%);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 20px 20px 0;
+            border-color: transparent var(--cyan) transparent transparent;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover::after {
+            opacity: 0.3;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(34, 211, 238, 0.3);
+            box-shadow: 0 10px 25px rgba(34, 211, 238, 0.1);
+        }
+
+        /* Acessibilidade - Respeitar preferências de movimento reduzido */
+        @media (prefers-reduced-motion: reduce) {
+            .pillar-card {
+                transition: none;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+            
+            .pillar-card.visible {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* Timeline Container */
+        .timeline-container {
+            position: relative;
+        }
+
+        /* Timeline Items */
+        .timeline-item {
+            position: relative;
+            margin-bottom: 6rem;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .timeline-item.aos-animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Timeline Content */
+        .timeline-content {
+            position: relative;
+        }
+
+        /* Meta Cards */
+        .meta-card {
+            background: linear-gradient(135deg, rgba(26, 27, 46, 0.6) 0%, rgba(26, 27, 46, 0.4) 100%);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .meta-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--cyan), var(--purple));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .meta-card:hover::before {
+            opacity: 1;
+        }
+
+        .meta-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(34, 211, 238, 0.3);
+            box-shadow: 0 25px 50px rgba(34, 211, 238, 0.1);
+        }
+
+        /* Meta Badge (Dia X-Y) */
+        .meta-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--cyan) 0%, var(--purple) 100%);
+            color: black;
+            font-weight: 700;
+            font-size: 0.875rem;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Meta Title */
+        .meta-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .meta-letter {
+            background: linear-gradient(135deg, var(--cyan) 0%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.75rem;
+            font-weight: 900;
+        }
+
+        .meta-subtitle {
+            display: block;
+            font-size: 1rem;
+            color: #94A3B8;
+            font-weight: 500;
+            margin-top: 0.25rem;
+        }
+
+        /* Meta Description */
+        .meta-description {
+            color: #CBD5E1;
+            font-size: 1.125rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Meta List */
+        .meta-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .meta-list li {
+            color: #94A3B8;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 0.75rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .meta-list li::before {
+            content: '•';
+            color: var(--cyan);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Timeline Markers (Desktop) */
+        .timeline-marker {
+            box-shadow: 0 0 0 4px rgba(10, 11, 20, 1), 0 0 20px rgba(34, 211, 238, 0.3);
+        }
+
+        /* Responsive - Mobile First */
+        @media (max-width: 768px) {
+            .timeline-item {
+                margin-bottom: 3rem;
+            }
+            
+            .meta-card {
+                padding: 2rem;
+            }
+            
+            .meta-title {
+                font-size: 1.25rem;
+            }
+            
+            .meta-letter {
+                font-size: 1.5rem;
+            }
+            
+            .meta-description {
+                font-size: 1rem;
+            }
+            
+            .meta-list li {
+                font-size: 0.875rem;
+            }
+            
+            /* Mobile: Marcadores inline */
+            .timeline-item::before {
+                content: attr(data-meta);
+                display: inline-block;
+                width: 3rem;
+                height: 3rem;
+                background: linear-gradient(135deg, var(--cyan) 0%, var(--purple) 100%);
+                color: black;
+                font-weight: 900;
+                font-size: 1.25rem;
+                border-radius: 50%;
+                text-align: center;
+                line-height: 3rem;
+                margin-bottom: 1rem;
+                box-shadow: 0 5px 15px rgba(34, 211, 238, 0.3);
+            }
+        }
+
+        /* Acessibilidade */
+        @media (prefers-reduced-motion: reduce) {
+            .timeline-item {
+                transition: none;
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* Timeline Layout Atualizado */
+        .timeline-line {
+            top: 3rem;
+            bottom: 3rem;
+        }
+
+        .timeline-marker {
+            box-shadow: 0 0 0 4px rgba(10, 11, 20, 1), 0 0 20px rgba(34, 211, 238, 0.3);
+            top: 0.5rem;
+        }
+
+        /* Responsive para o novo layout */
+        @media (max-width: 1024px) {
+            .timeline-container .timeline-line {
+                left: 1.5rem;
+            }
+            
+            .timeline-item {
+                padding-left: 4rem;
+            }
+            
+            .timeline-marker {
+                left: 0;
+                width: 3rem;
+                height: 3rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.25rem;
+            margin-top: 3rem;
+        }
+
+        /* Widget Base */
+        .dashboard-widget {
+            background: linear-gradient(135deg, rgba(26, 27, 46, 0.8) 0%, rgba(26, 27, 46, 0.6) 100%);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            transition: all 0.4s ease;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .dashboard-widget.aos-animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dashboard-widget::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--cyan), var(--purple));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .dashboard-widget:hover::before {
+            opacity: 1;
+        }
+
+        .dashboard-widget:hover {
+            transform: translateY(-8px);
+            border-color: rgba(34, 211, 238, 0.4);
+            box-shadow: 0 30px 60px rgba(34, 211, 238, 0.15);
+        }
+
+        /* Widget Title */
+        .widget-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #94A3B8;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        /* Widget Visual Container */
+        .widget-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 120px;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        /* Widget Text */
+        .widget-text {
+            color: #CBD5E1;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        /* Widget 1: Gráfico de Linha (Tempo de Resposta) */
+        .response-chart {
+            width: 100%;
+            height: 80px;
+            position: relative;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(34, 211, 238, 0.1) 100%);
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .chart-line {
+            position: absolute;
+            top: 20px;
+            left: 10px;
+            right: 10px;
+            height: 2px;
+            background: linear-gradient(90deg, #EF4444 0%, var(--cyan) 100%);
+            transform-origin: left;
+            animation: drawLine 2s ease-out forwards;
+        }
+
+        .chart-line::before {
+            content: '8h';
+            position: absolute;
+            left: 0;
+            top: -25px;
+            font-size: 0.75rem;
+            color: #EF4444;
+            font-weight: 600;
+        }
+
+        .chart-line::after {
+            content: '<60s';
+            position: absolute;
+            right: 0;
+            bottom: -25px;
+            font-size: 0.75rem;
+            color: var(--cyan);
+            font-weight: 600;
+        }
+
+        @keyframes drawLine {
+            0% { 
+                transform: scaleX(0) rotate(0deg); 
+            }
+            100% { 
+                transform: scaleX(1) rotate(-15deg); 
+            }
+        }
+
+        /* Widget 2: Número Grande (Taxa de Conversão) */
+        .conversion-number {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .big-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #10B981 0%, var(--cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            animation: countUp 2s ease-out forwards;
+        }
+
+        .arrow-up {
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 20px solid #10B981;
+            margin-bottom: 0.5rem;
+            animation: bounce 2s infinite;
+        }
+
+        .comparison-text {
+            font-size: 0.75rem;
+            color: #64748B;
+            font-style: italic;
+        }
+
+        @keyframes countUp {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Widget 3: Status Circular (24/7) */
+        .status-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(34, 211, 238, 0.2) 0%, rgba(16, 185, 129, 0.2) 100%);
+            border: 3px solid #10B981;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .status-text {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #10B981;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .status-circle::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(34, 211, 238, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+            animation: ripple 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 40px rgba(16, 185, 129, 0.6);
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes ripple {
+            0% { 
+                transform: scale(1); 
+                opacity: 1; 
+            }
+            100% { 
+                transform: scale(1.3); 
+                opacity: 0; 
+            }
+        }
+
+        /* Widget 4: Medidor de Satisfação */
+        .satisfaction-meter {
+            position: relative;
+            width: 120px;
+            height: 60px;
+            margin: 0 auto;
+        }
+
+        .meter-arc {
+            width: 120px;
+            height: 60px;
+            border: 8px solid #1E293B;
+            border-bottom: none;
+            border-radius: 120px 120px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .meter-arc::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 70%;
+            height: 100%;
+            border: 8px solid #10B981;
+            border-bottom: none;
+            border-radius: 120px 120px 0 0;
+            border-right: none;
+            animation: fillMeter 2s ease-out forwards;
+        }
+
+        .meter-needle {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            height: 50px;
+            background: var(--cyan);
+            transform-origin: bottom;
+            transform: translateX(-50%) rotate(-45deg);
+            animation: swingNeedle 2s ease-out forwards;
+        }
+
+        .meter-value {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #10B981;
+        }
+
+        @keyframes fillMeter {
+            0% { width: 0%; }
+            100% { width: 70%; }
+        }
+
+        @keyframes swingNeedle {
+            0% { transform: translateX(-50%) rotate(-90deg); }
+            100% { transform: translateX(-50%) rotate(-25deg); }
+        }
+
+        /* Widget 5: Redução de Custo */
+        .cost-reduction {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .cost-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .dollar-sign {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #EF4444;
+            line-height: 1;
+        }
+
+        .arrow-down {
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 14px solid #EF4444;
+            animation: bounceDown 2s infinite;
+        }
+
+        .reduction-number {
+            font-size: 2.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            animation: countDown 2s ease-out forwards;
+        }
+
+        @keyframes bounceDown {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(8px); }
+            60% { transform: translateY(4px); }
+        }
+
+        @keyframes countDown {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 1400px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .dashboard-widget {
+                padding: 1.5rem;
+            }
+
+            .big-number {
+                font-size: 2.5rem;
+            }
+
+            .reduction-number {
+                font-size: 2.2rem;
+            }
+
+            .dollar-sign {
+                font-size: 1.5rem;
+            }
+
+            .status-circle {
+                width: 80px;
+                height: 80px;
+            }
+
+            .satisfaction-meter {
+                width: 100px;
+                height: 50px;
+            }
+
+            .meter-arc {
+                width: 100px;
+                height: 50px;
+            }
+
+            .meter-needle {
+                height: 40px;
+            }
+        }
+
+        /* Acessibilidade */
+        @media (prefers-reduced-motion: reduce) {
+            .dashboard-widget,
+            .chart-line,
+            .big-number,
+            .arrow-up,
+            .status-circle,
+            .meter-arc::before,
+            .meter-needle {
+                animation: none;
+            }
+
+            .status-circle::before {
+                animation: none;
+            }
+        }
+
+        /* FAQ Container */
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* FAQ Item */
+        .faq-item {
+            background: linear-gradient(135deg, rgba(26, 27, 46, 0.6) 0%, rgba(26, 27, 46, 0.4) 100%);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .faq-item.aos-animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .faq-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--cyan), var(--purple));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .faq-item:hover::before {
+            opacity: 1;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(34, 211, 238, 0.3);
+            box-shadow: 0 20px 40px rgba(34, 211, 238, 0.1);
+        }
+
+        /* FAQ Question Button */
+        .faq-question {
+            width: 100%;
+            padding: 2rem 2.5rem;
+            background: none;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1.4;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            color: var(--cyan);
+        }
+
+        /* FAQ Icon */
+        .faq-icon {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-left: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .faq-icon::before,
+        .faq-icon::after {
+            content: '';
+            position: absolute;
+            background: var(--cyan);
+            transition: all 0.3s ease;
+        }
+
+        .faq-icon::before {
+            width: 12px;
+            height: 2px;
+        }
+
+        .faq-icon::after {
+            width: 2px;
+            height: 12px;
+        }
+
+        .faq-item.active .faq-icon {
+            background: var(--cyan);
+            transform: rotate(45deg);
+        }
+
+        .faq-item.active .faq-icon::before,
+        .faq-item.active .faq-icon::after {
+            background: black;
+        }
+
+        /* FAQ Answer */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 0 2.5rem 2rem 2.5rem;
+        }
+
+        .faq-answer-content {
+            color: #CBD5E1;
+            font-size: 1.125rem;
+            line-height: 1.7;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive FAQ */
+        @media (max-width: 768px) {
+            .faq-question {
+                padding: 1.5rem 2rem;
+                font-size: 1.125rem;
+            }
+
+            .faq-item.active .faq-answer {
+                padding: 0 2rem 1.5rem 2rem;
+            }
+
+            .faq-answer-content {
+                font-size: 1rem;
+            }
+
+            .faq-icon {
+                width: 20px;
+                height: 20px;
+                margin-left: 0.75rem;
+            }
+
+            .faq-icon::before {
+                width: 10px;
+            }
+
+            .faq-icon::after {
+                height: 10px;
+            }
+        }
+
+        /* Acessibilidade FAQ */
+        @media (prefers-reduced-motion: reduce) {
+            .faq-item,
+            .faq-answer,
+            .faq-icon {
+                transition: none;
+            }
+        }
+
+        /* BLOCO 3: SEÇÃO PROBLEMA - REDESIGN DUAS COLUNAS */
+        .grupo-problema {
+            position: relative;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .grupo-problema:last-child {
+            border-bottom: none;
+        }
+
+        .grupo-problema:hover {
+            background: linear-gradient(90deg, rgba(34, 211, 238, 0.02) 0%, transparent 100%);
+            padding-left: 1rem;
+            border-radius: 0.5rem;
+        }
+
+        .grupo-problema:hover .gradient-text {
+            background: linear-gradient(135deg, var(--cyan) 0%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Responsive para mobile */
+        @media (max-width: 768px) {
+            .grupo-problema {
+                padding: 1rem 0;
+            }
+            
+            .grupo-problema:hover {
+                padding-left: 0.5rem;
+            }
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <div class="header-icon">
-                <svg class="globe-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="2" y1="12" x2="22" y2="12"></line>
-                    <path d="m2 12c0 5.523 4.477 10 10 10s10-4.477 10-10"></path>
-                    <path d="m2 12c0-5.523 4.477-10 10-10s10 4.477 10 10"></path>
-                </svg>
-                <h1 class="main-title">Eloscope</h1>
+    <div class="mesh-gradient-bg"></div>
+    <div class="relative z-10">
+        <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+            <div class="section-container">
+                <div class="flex items-center justify-between py-4">
+                    <a href="#" class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gradient-to-br from-slate-800 to-black border border-cyan-400/30 rounded-full flex items-center justify-center logo-animation">
+                            <div class="w-8 h-8 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full flex items-center justify-center">
+                                <span class="text-black font-bold text-sm">E</span>
+                            </div>
+                        </div>
+                        <span class="font-bold text-lg text-white">Eloscope</span>
+                    </a>
+                    <div class="hidden md:flex items-center gap-8 text-sm text-slate-300">
+                        <a href="#solucao" class="hover:text-cyan-400 transition-colors relative group">
+                            A Solução
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                        <a href="#problema" class="hover:text-cyan-400 transition-colors relative group">
+                            A Realidade
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                        <a href="#pilares" class="hover:text-cyan-400 transition-colors relative group">
+                            Os Pilares
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                        <a href="#metodo" class="hover:text-cyan-400 transition-colors relative group">
+                            O Método
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                        <a href="#faq" class="hover:text-cyan-400 transition-colors relative group">
+                            FAQ
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                    </div>
+                    <a href="#cta" class="btn-gradient px-5 py-2.5 text-sm font-semibold text-black rounded-lg relative z-10">Agendar Sessão</a>
+                </div>
             </div>
-            <p class="subtitle">Extraia dados de locais de forma inteligente e automatizada</p>
+        </header>
+
+        <!-- HERO SECTION -->
+        <section class="hero-section">
+            <main class="text-center px-6 pt-24 pb-12 relative z-10">
+                <div class="max-w-4xl mx-auto space-y-8" data-aos="fade-up">
+                    <h1 class="hero-title text-5xl md:text-7xl font-extrabold tracking-tight text-white leading-tight section-title-lg">
+                        Transforme seu WhatsApp no <br>
+                        <span class="gradient-text">Vendedor que Nunca Para</span>
+                    </h1>
+                    <p class="text-lg md:text-xl max-w-2xl mx-auto text-slate-400 leading-relaxed section-subtitle">
+                        Implementamos um agente de IA que atende, qualifica e vende 24/7. Transforme conversas em receita, sem perder nenhum lead.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                        <a href="#cta" class="btn-gradient w-full sm:w-auto px-8 py-3.5 font-semibold text-black rounded-lg relative z-10">Agendar Sessão Gratuita</a>
+                        <a href="#solucao" class="w-full sm:w-auto px-8 py-3.5 font-semibold text-white rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-cyan-400/30 transition-all duration-300">Ver Demonstração</a>
+                    </div>
+                </div>
+            </main>
+        </section>
+    </div>
+
+    <!-- COMPANIES SECTION -->
+    <section class="companies-section section-spacing relative z-10" data-aos="fade-up" data-aos-delay="200">
+        <div class="section-container">
+            <p class="text-center text-sm font-semibold companies-text mb-8 tracking-wider">CONFIADO POR EMPRESAS QUE BUSCAM ESCALAR</p>
+            <div class="flex justify-center items-center gap-8 md:gap-12 grayscale opacity-60 hover:opacity-80 transition-opacity duration-300">
+                <p class="font-bold text-lg hover:text-cyan-400 transition-colors cursor-default">EMPRESA A</p>
+                <p class="font-bold text-lg hover:text-cyan-400 transition-colors cursor-default">EMPRESA B</p>
+                <p class="font-bold text-lg hover:text-cyan-400 transition-colors cursor-default">EMPRESA C</p>
+                <p class="font-bold text-lg hidden sm:block hover:text-cyan-400 transition-colors cursor-default">EMPRESA D</p>
+                <p class="font-bold text-lg hidden md:block hover:text-cyan-400 transition-colors cursor-default">EMPRESA E</p>
+            </div>
         </div>
+    </section>
 
-        <!-- Form Card -->
-        <div class="form-card">
-            <div class="card-header">
-                <h2 class="card-title">
-                    <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <path d="m21 21-4.35-4.35"></path>
-                    </svg>
-                    Configurar Pesquisa
-                </h2>
-                <p class="card-description">Preencha os dados abaixo para iniciar a extração de informações</p>
+    <!-- DIVISOR DECORATIVO -->
+    <div class="section-divider"></div>
+
+    <!-- SEÇÃO SOLUÇÃO -->
+    <section id="solucao" class="solucao-section section-spacing-lg relative z-10">
+        <div class="section-container relative">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <div data-aos="fade-right" class="space-y-6">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white leading-tight section-title">
+                        Imagine ter o funcionário perfeito. Aquele que nunca dorme, nunca se cansa e 
+                        <span class="gradient-text">ama recuperar vendas perdidas.</span>
+                    </h2>
+                    <p class="text-slate-300 text-lg leading-relaxed">
+                        O Agente de IA Eloscope não é um simples robô. É o cérebro da sua operação de vendas no WhatsApp, combinando uma década de experiência em funis de alta conversão com a mais avançada inteligência artificial.
+                    </p>
+                </div>
+                <div data-aos="fade-left" class="flex items-center justify-center">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-purple-500/20 rounded-2xl blur-xl"></div>
+                        <img src="/placeholder.svg?height=400&width=500" alt="Cérebro de IA conectando-se a ícones de vendas" class="relative rounded-2xl w-full max-w-lg shadow-2xl shadow-cyan-500/20 border border-cyan-400/20">
+                    </div>
+                </div>
             </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16" data-aos="fade-up">
+                <div class="feature-card">
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        <strong class="text-white gradient-text">Recupera vendas às 3h da manhã:</strong> Trabalha 24/7, inclusive nos feriados.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        <strong class="text-white gradient-text">Responde 100% dos leads em < 3s:</strong> Acaba com a espera que faz você perder vendas.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        <strong class="text-white gradient-text">Mantém a excelência no pico:</strong> Não importa o volume, a qualidade e agilidade são as mesmas.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        <strong class="text-white gradient-text">Entende a hora certa de agir:</strong> Sabe quando quebrar objeções ou oferecer um upsell.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        <strong class="text-white gradient-text">Fica mais inteligente a cada conversa:</strong> Aprende com cada interação para otimizar as taxas de conversão.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        <strong class="text-white gradient-text">Escala junto com seu faturamento:</strong> Acompanha seu crescimento sem custos adicionais de pessoal.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            <div class="card-content">
-                <form id="webscrapingForm">
-                    <!-- Localização -->
-                    <div class="form-group">
-                        <div class="form-row">
-                            <div>
-                                <label for="cidade" class="form-label">
-                                    <svg class="map-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                        <circle cx="12" cy="10" r="3"></circle>
-                                    </svg>
-                                    Cidade
-                                </label>
-                                <input 
-                                    type="text" 
-                                    id="cidade" 
-                                    name="cidade" 
-                                    class="form-input" 
-                                    placeholder="Ex: São Paulo" 
-                                    required
-                                >
+    <!-- DIVISOR DECORATIVO -->
+    <div class="section-divider"></div>
+
+    <!-- SEÇÃO PROBLEMA -->
+    <section id="problema" class="problema-section section-spacing-lg relative z-10">
+        <div class="section-container relative">
+            <!-- Layout Duas Colunas -->
+            <div class="grid lg:grid-cols-5 gap-12 lg:gap-16 items-center">
+                
+                <!-- Coluna Esquerda: Imagem Conceitual (40%) -->
+                <div class="lg:col-span-2" data-aos="fade-right">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-purple-500/20 rounded-2xl blur-xl"></div>
+                        <img src="/placeholder.svg?height=500&width=400" 
+                             alt="Funil de vendas com rachaduras vazando clientes e receita" 
+                             class="relative rounded-2xl w-full shadow-2xl shadow-cyan-500/20 border border-cyan-400/20">
+                    </div>
+                </div>
+
+                <!-- Coluna Direita: Conteúdo de Texto (60%) -->
+                <div class="lg:col-span-3" data-aos="fade-left">
+                    <!-- Título Principal -->
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white leading-tight section-title">
+                        O jeito de comprar online mudou. Seu jeito de vender também precisa.
+                    </h2>
+                    
+                                        <!-- Parágrafo Explicativo -->
+                    <p class="text-lg text-slate-400 leading-relaxed section-subtitle">
+                        Se você ainda depende de um processo manual para atender e vender, está deixando dinheiro na mesa e limitando seu próprio crescimento. Veja se algum destes desafios soa familiar:
+                    </p>
+
+                    <!-- Lista Vertical dos Pontos de Dor -->
+                    <div class="space-y-6">
+                        <!-- Ponto 1 -->
+                        <div class="flex items-start gap-4 grupo-problema" data-aos="fade-up" data-aos-delay="100">
+                            <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full flex items-center justify-center text-black font-bold text-sm mt-1">
+                                1
                             </div>
                             <div>
-                                <label for="estado" class="form-label">Estado</label>
-                                <select id="estado" name="estado" class="form-select" required>
-                                    <option value="">Selecione o estado</option>
-                                    <option value="AC">AC</option>
-                                    <option value="AL">AL</option>
-                                    <option value="AP">AP</option>
-                                    <option value="AM">AM</option>
-                                    <option value="BA">BA</option>
-                                    <option value="CE">CE</option>
-                                    <option value="DF">DF</option>
-                                    <option value="ES">ES</option>
-                                    <option value="GO">GO</option>
-                                    <option value="MA">MA</option>
-                                    <option value="MT">MT</option>
-                                    <option value="MS">MS</option>
-                                    <option value="MG">MG</option>
-                                    <option value="PA">PA</option>
-                                    <option value="PB">PB</option>
-                                    <option value="PR">PR</option>
-                                    <option value="PE">PE</option>
-                                    <option value="PI">PI</option>
-                                    <option value="RJ">RJ</option>
-                                    <option value="RN">RN</option>
-                                    <option value="RS">RS</option>
-                                    <option value="RO">RO</option>
-                                    <option value="RR">RR</option>
-                                    <option value="SC">SC</option>
-                                    <option value="SP">SP</option>
-                                    <option value="SE">SE</option>
-                                    <option value="TO">TO</option>
-                                </select>
+                                <h3 class="text-xl font-bold text-white mb-2 gradient-text">A Ditadura da Resposta Imediata</h3>
+                                <p class="text-slate-400 leading-relaxed">
+                                    Estudos mostram que leads respondidos em menos de 5 minutos têm 21x mais chances de conversão. Você consegue garantir essa velocidade às 2h da manhã, no pico de um lançamento ou na Black Friday?
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Ponto 2 -->
+                        <div class="flex items-start gap-4 grupo-problema" data-aos="fade-up" data-aos-delay="200">
+                            <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full flex items-center justify-center text-black font-bold text-sm mt-1">
+                                2
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white mb-2 gradient-text">O Custo de Não Automatizar</h3>
+                                <p class="text-slate-400 leading-relaxed">
+                                    Contratar mais gente para o suporte ou vendas é caro e demorado. Se a demanda cai, você arca com um custo fixo. Se ela explode, sua equipe não dá conta e a experiência do cliente desmorona.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Ponto 3 -->
+                        <div class="flex items-start gap-4 grupo-problema" data-aos="fade-up" data-aos-delay="300">
+                            <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full flex items-center justify-center text-black font-bold text-sm mt-1">
+                                3
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white mb-2 gradient-text">A Inconsistência que Mata a Conversão</h3>
+                                <p class="text-slate-400 leading-relaxed">
+                                    Um lead recebe um cupom, o outro não. Uma resposta é rápida, outra demora horas. Cada inconsistência no atendimento gera desconfiança e quebra a autoridade do seu funil de vendas.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Ponto 4 -->
+                        <div class="flex items-start gap-4 grupo-problema" data-aos="fade-up" data-aos-delay="400">
+                            <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full flex items-center justify-center text-black font-bold text-sm mt-1">
+                                4
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white mb-2 gradient-text">A Barreira Invisível da Escalabilidade</h3>
+                                <p class="text-slate-400 leading-relaxed">
+                                    Para dobrar seu faturamento, você precisa dobrar o número de pessoas no atendimento? Se a resposta for sim, seu modelo de negócio tem um teto. E ele pode estar mais próximo do que você imagina.
+                                </p>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <!-- Termos de Pesquisa -->
-                    <div class="form-group">
-                        <label for="termos" class="form-label">Termos de Pesquisa</label>
-                        <input 
-                            type="text" 
-                            id="termos" 
-                            name="termosDesPesquisa" 
-                            class="form-input" 
-                            placeholder="Ex: restaurantes, hotéis, lojas" 
-                            required
-                        >
+            <!-- CTA Final -->
+            <div class="text-center mt-16" data-aos="fade-up" data-aos-delay="500">
+                <p class="text-xl font-semibold text-white mb-6">
+                    O Agente de IA Eloscope foi desenhado para destruir esses desafios.
+                </p>
+                <div class="mt-6">
+                    <a href="#cta" class="btn-gradient inline-block px-8 py-3.5 font-semibold text-black rounded-lg relative z-10">QUERO SUPERAR ESSES DESAFIOS</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DIVISOR DECORATIVO -->
+    <div class="section-divider"></div>
+
+    <!-- SEÇÃO PILARES -->
+    <section id="pilares" class="pilares-section pillar-section grid-bg section-spacing-xl relative z-10">
+        <div class="section-container">
+            <!-- Título e Descrição Centralizados -->
+            <div class="text-center max-w-4xl mx-auto mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-6xl font-extrabold text-white leading-tight section-title-lg">
+                    Mais que um Robô: Uma <span class="gradient-text">Inteligência de Vendas Real.</span>
+                </h2>
+                <p class="text-xl text-slate-400 leading-relaxed section-subtitle">
+                    Nosso Agente foi construído com 5 pilares de inteligência que o tornam uma ferramenta de conversão única no mercado.
+                </p>
+            </div>
+
+            <!-- Container dos Pilares -->
+            <div class="pillars-container">
+                <!-- Pilar 1: Conversas que Convertem -->
+                <div class="pillar-card pillar-item" data-pillar="1">
+                    <div class="pillar-text">
+                        <h3 class="pillar-title">Conversas que Convertem<br><span class="gradient-text">(e não parecem robóticas)</span></h3>
+                        <p class="pillar-description">
+                            Nosso Agente compreende gírias, áudios e até o sarcasmo. Ele não segue scripts, mas entende o contexto e a intenção de compra, gerando confiança e mais vendas.
+                        </p>
+                    </div>
+                    <div class="pillar-image">
+                        <img src="/placeholder.svg?height=400&width=600" alt="Onda sonora se transformando em uma impressão digital humana representando conversas naturais">
+                    </div>
+                </div>
+
+                <!-- Pilar 2: Adaptação em Tempo Real -->
+                <div class="pillar-card reverse pillar-item" data-pillar="2">
+                    <div class="pillar-text">
+                        <h3 class="pillar-title gradient-text">Adaptação em Tempo Real</h3>
+                        <p class="pillar-description">
+                            Se o cliente está só curioso, o Agente adota um tom consultivo. Se demonstra urgência, ele acelera. Tudo acontece em tempo real com base no comportamento do lead.
+                        </p>
+                    </div>
+                    <div class="pillar-image">
+                        <img src="/placeholder.svg?height=400&width=600" alt="Trilha de luz escolhendo uma bifurcação digital representando adaptação em tempo real">
+                    </div>
+                </div>
+
+                <!-- Pilar 3: Memória de Longo Prazo -->
+                <div class="pillar-card pillar-item" data-pillar="3">
+                    <div class="pillar-text">
+                        <h3 class="pillar-title gradient-text">Memória de Longo Prazo</h3>
+                        <p class="pillar-description">
+                            O cliente voltou depois de meses? O Agente lembra tudo: histórico da conversa, produtos visitados e preferências, garantindo um follow-up personalizado e certeiro.
+                        </p>
+                    </div>
+                    <div class="pillar-image">
+                        <img src="/placeholder.svg?height=400&width=600" alt="Árvore digital luminosa com raízes formadas por conversas passadas representando memória de longo prazo">
+                    </div>
+                </div>
+
+                <!-- Pilar 4: Expertise em Vendas Online -->
+                <div class="pillar-card reverse pillar-item" data-pillar="4">
+                    <div class="pillar-text">
+                        <h3 class="pillar-title gradient-text">Expertise em Vendas Online</h3>
+                        <p class="pillar-description">
+                            Com dados e copy que convertem, o Agente aplica anos de expertise de funis digitais no seu negócio. É como contratar um especialista em vendas 24/7.
+                        </p>
+                    </div>
+                    <div class="pillar-image">
+                        <img src="/placeholder.svg?height=400&width=600" alt="Chave mestra brilhante abrindo várias fechaduras representando a solução de dúvidas e objeções">
+                    </div>
+                </div>
+
+                <!-- Pilar 5: O Coração do seu Ecossistema -->
+                <div class="pillar-card pillar-item" data-pillar="5">
+                    <div class="pillar-text">
+                        <h3 class="pillar-title gradient-text">O Coração do seu Ecossistema</h3>
+                        <p class="pillar-description">
+                            Integrado com CRM, agenda e automações, o Agente potencializa seu ecossistema. Ele orquestra dados e ferramentas para gerar mais vendas com inteligência.
+                        </p>
+                    </div>
+                    <div class="pillar-image">
+                        <img src="/placeholder.svg?height=400&width=600" alt="Maestro regendo ícones de ferramentas de negócio representando a orquestração do ecossistema">
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Final -->
+            <div class="text-center mt-16" data-aos="fade-up" data-aos-delay="600">
+                <a href="#cta" class="btn-gradient inline-block px-10 py-4 text-lg font-semibold text-black rounded-lg relative z-10 transition-all duration-300">
+                    QUERO VER ESSA INTELIGÊNCIA EM AÇÃO
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- DIVISOR DECORATIVO -->
+    <div class="section-divider"></div>
+
+    <!-- SEÇÃO PROCESSO M.E.T.A. -->
+    <section id="processo" class="processo-section section-spacing-xl relative z-10">
+        <div class="section-container">
+            <!-- Layout em duas colunas: Texto à esquerda, Timeline à direita -->
+            <div class="grid lg:grid-cols-5 gap-12 lg:gap-16 max-w-7xl mx-auto">
+                
+            <!-- Coluna Esquerda: Texto Introdutório -->
+            <div class="lg:col-span-2" data-aos="fade-right">
+                <div class="lg:sticky lg:top-32">
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-white leading-tight section-title">
+                        O Processo de Transformação <span class="gradient-text">(Método M.E.T.A.)</span>
+                    </h2>
+                    <h3 class="text-xl md:text-2xl font-bold text-cyan-400 mb-6">
+                        Como colocamos seu Agente IA para vender em 15 dias
+                    </h3>
+                    <p class="text-lg text-slate-400 leading-relaxed section-subtitle">
+                        Desenvolvemos um processo de implementação rápido e transparente, que exige o mínimo de tempo da sua equipe e entrega o máximo de resultado. Em apenas 15 dias, seu Agente de IA estará online, operando e gerando vendas através do nosso Método M.E.T.A.
+                    </p>
+                    
+                    <!-- CTA Lateral -->
+                    <div class="hidden lg:block">
+                        <a href="#cta" class="btn-gradient inline-block px-8 py-3 font-semibold text-black rounded-lg relative z-10 transition-all duration-300">
+                            IMPLEMENTAR MÉTODO M.E.T.A.
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coluna Direita: Timeline Vertical -->
+            <div class="lg:col-span-3">
+                <div class="timeline-container relative">
+                    <!-- Linha Central Vertical -->
+                    <div class="timeline-line absolute left-6 w-1 bg-gradient-to-b from-cyan-400 via-purple-500 to-cyan-400 opacity-30 h-full"></div>
+                    
+                    <!-- Etapa 1: Mapeamento (M) -->
+                    <div class="timeline-item meta-item relative pl-16 pb-12" data-meta="M" data-aos="fade-up" data-aos-delay="100">
+                        <!-- Marcador -->
+                        <div class="timeline-marker absolute left-0 w-12 h-12 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full flex items-center justify-center text-black font-bold text-lg z-10">
+                            M
+                        </div>
+                        
+                        <!-- Conteúdo -->
+                        <div class="meta-card">
+                            <div class="meta-badge">Dia 1–2</div>
+                            <h3 class="meta-title">
+                                1. <span class="meta-letter">M</span>apeamento e Estratégia
+                                <span class="meta-subtitle">(O M de M.E.T.A.)</span>
+                            </h3>
+                            <p class="meta-description">
+                                Realizamos uma imersão profunda no seu negócio para desenhar a estratégia de automação perfeita.
+                            </p>
+                            <ul class="meta-list">
+                                <li>Mapeamento do processo de venda atual</li>
+                                <li>Definição de objetivos e KPIs</li>
+                                <li>Captura da personalidade da marca</li>
+                                <li>Identificação das principais objeções dos clientes</li>
+                            </ul>
+                        </div>
                     </div>
 
-                    <!-- Número de Lugares -->
-                    <div class="form-group">
-                        <label for="numero" class="form-label">Número de Lugares para Extrair</label>
-                        <input 
-                            type="number" 
-                            id="numero" 
-                            name="numeroLugares" 
-                            class="form-input" 
-                            placeholder="Ex: 50" 
-                            min="1" 
-                            max="1000" 
-                            required
-                        >
+                    <!-- Etapa 2: Estruturação (E) -->
+                    <div class="timeline-item meta-item relative pl-16 pb-12" data-meta="E" data-aos="fade-up" data-aos-delay="200">
+                        <!-- Marcador -->
+                        <div class="timeline-marker absolute left-0 w-12 h-12 bg-gradient-to-r from-purple-500 to-cyan-400 rounded-full flex items-center justify-center text-black font-bold text-lg z-10">
+                            E
+                        </div>
+                        
+                        <!-- Conteúdo -->
+                        <div class="meta-card">
+                            <div class="meta-badge">Dia 3–8</div>
+                            <h3 class="meta-title">
+                                2. <span class="meta-letter">E</span>struturação da Inteligência
+                                <span class="meta-subtitle">(O E de M.E.T.A.)</span>
+                            </h3>
+                            <p class="meta-description">
+                                Construímos e treinamos o cérebro do seu Agente de IA customizado.
+                            </p>
+                            <ul class="meta-list">
+                                <li>Desenvolvimento do fluxo de qualificação</li>
+                                <li>Criação da base de conhecimento</li>
+                                <li>Implementação das integrações</li>
+                                <li>Programação dos algoritmos de aprendizado</li>
+                            </ul>
+                        </div>
                     </div>
 
-                    <!-- Submit Button -->
-                    <button type="submit" id="submitBtn" class="submit-btn">
-                        <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="m21 21-4.35-4.35"></path>
-                        </svg>
-                        Pesquisar
-                    </button>
-                </form>
+                    <!-- Etapa 3: Testes (T) -->
+                    <div class="timeline-item meta-item relative pl-16 pb-12" data-meta="T" data-aos="fade-up" data-aos-delay="300">
+                        <!-- Marcador -->
+                        <div class="timeline-marker absolute left-0 w-12 h-12 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full flex items-center justify-center text-black font-bold text-lg z-10">
+                            T
+                        </div>
+                        
+                        <!-- Conteúdo -->
+                        <div class="meta-card">
+                            <div class="meta-badge">Dia 9–12</div>
+                            <h3 class="meta-title">
+                                3. <span class="meta-letter">T</span>estes e Validação
+                                <span class="meta-subtitle">(O T de M.E.T.A.)</span>
+                            </h3>
+                            <p class="meta-description">
+                                Realizamos simulações e validações em ambiente controlado para garantir performance máxima.
+                            </p>
+                            <ul class="meta-list">
+                                <li>Simulações de diversos cenários de atendimento</li>
+                                <li>Testes de carga e estabilidade</li>
+                                <li>Ajustes finos na copy e no tom de voz</li>
+                                <li>Verificação completa das automações</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Etapa 4: Ativação (A) -->
+                    <div class="timeline-item meta-item relative pl-16" data-meta="A" data-aos="fade-up" data-aos-delay="400">
+                        <!-- Marcador -->
+                        <div class="timeline-marker absolute left-0 w-12 h-12 bg-gradient-to-r from-purple-500 to-cyan-400 rounded-full flex items-center justify-center text-black font-bold text-lg z-10">
+                            A
+                        </div>
+                        
+                        <!-- Conteúdo -->
+                        <div class="meta-card">
+                            <div class="meta-badge">Dia 13–15 e Além</div>
+                            <h3 class="meta-title">
+                                4. <span class="meta-letter">A</span>tivação e Acompanhamento
+                                <span class="meta-subtitle">(O A de M.E.T.A.)</span>
+                            </h3>
+                            <p class="meta-description">
+                                O Agente entra em operação com acompanhamento e otimização contínua.
+                            </p>
+                            <ul class="meta-list">
+                                <li>Monitoramento intensivo nas primeiras 72 horas</li>
+                                <li>Análise de performance semanal</li>
+                                <li>Ajustes baseados em dados reais</li>
+                                <li>Suporte contínuo e reuniões de acompanhamento</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Footer -->
-        <div class="footer">
-            <p>Powered by Eloscope Technology</p>
+        <!-- CTA Final Mobile -->
+        <div class="text-center mt-16 lg:hidden" data-aos="fade-up" data-aos-delay="500">
+            <a href="#cta" class="btn-gradient inline-block px-10 py-4 text-lg font-semibold text-black rounded-lg relative z-10 transition-all duration-300">
+                QUERO IMPLEMENTAR O MÉTODO M.E.T.A.
+            </a>
         </div>
     </div>
+    </section>
 
-    <!-- Toast Container -->
-    <div id="toastContainer"></div>
+    <!-- DIVISOR DECORATIVO -->
+    <div class="section-divider"></div>
+
+    <!-- SEÇÃO DASHBOARD -->
+    <section id="dashboard" class="dashboard-section section-spacing-xl relative z-10">
+        <div class="section-container">
+            <!-- Título e Introdução -->
+            <div class="text-center max-w-4xl mx-auto mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-6xl font-extrabold text-white leading-tight section-title-lg">
+                    O Impacto que Você Vê nos <span class="gradient-text">Números (e no Caixa)</span>
+                </h2>
+                <p class="text-xl text-slate-400 leading-relaxed section-subtitle">
+                    Nossa IA não apenas executa, ela mede. Cada conversa, cada follow-up e cada venda são rastreados e transformados em indicadores de performance que provam o retorno sobre seu investimento, em tempo real.
+                </p>
+            </div>
+
+            <!-- Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Widget 1: Velocidade da Conversão -->
+                <div class="dashboard-widget" data-aos="fade-up" data-aos-delay="100">
+                    <div class="widget-title">Tempo Médio de Resposta</div>
+                    <div class="widget-visual">
+                        <div class="response-chart">
+                            <div class="chart-line"></div>
+                        </div>
+                    </div>
+                    <div class="widget-text">
+                        Sua nova realidade: atendimento instantâneo que encanta clientes e aniquila a concorrência.
+                    </div>
+                </div>
+
+                <!-- Widget 2: Potencial de Vendas -->
+                <div class="dashboard-widget" data-aos="fade-up" data-aos-delay="200">
+                    <div class="widget-title">Evolução da Taxa de Conversão</div>
+                    <div class="widget-visual">
+                        <div class="conversion-number">
+                            <div class="arrow-up"></div>
+                            <div class="big-number">+47%</div>
+                            <div class="comparison-text">vs. processo manual</div>
+                        </div>
+                    </div>
+                    <div class="widget-text">
+                        O resultado direto de nunca mais deixar um lead esperando. Cada interação é uma oportunidade convertida.
+                    </div>
+                </div>
+
+                <!-- Widget 3: Operação Ininterrupta -->
+                <div class="dashboard-widget" data-aos="fade-up" data-aos-delay="300">
+                    <div class="widget-title">Status do Agente IA</div>
+                    <div class="widget-visual">
+                        <div class="status-circle">
+                            <div class="status-text">OPERANDO<br>24/7</div>
+                        </div>
+                    </div>
+                    <div class="widget-text">
+                        Disponibilidade total. Seu negócio continua vendendo, mesmo enquanto você dorme ou está de férias.
+                    </div>
+                </div>
+
+                <!-- Widget 4: Qualidade da Experiência -->
+                <div class="dashboard-widget" data-aos="fade-up" data-aos-delay="400">
+                    <div class="widget-title">Nível de Satisfação do Cliente</div>
+                    <div class="widget-visual">
+                        <div class="satisfaction-meter">
+                            <div class="meter-arc"></div>
+                            <div class="meter-needle"></div>
+                            <div class="meter-value">92%</div>
+                        </div>
+                    </div>
+                    <div class="widget-text">
+                        Clientes felizes compram mais, indicam mais e se tornam fãs da sua marca. Simples assim.
+                    </div>
+                </div>
+
+                <!-- Widget 5: Redução de Custo Operacional -->
+                <div class="dashboard-widget" data-aos="fade-up" data-aos-delay="500">
+                    <div class="widget-title">Redução de Custo Operacional</div>
+                    <div class="widget-visual">
+                        <div class="cost-reduction">
+                            <div class="cost-icon">
+                                <div class="dollar-sign">$</div>
+                                <div class="arrow-down"></div>
+                            </div>
+                            <div class="reduction-number">-64%</div>
+                        </div>
+                    </div>
+                    <div class="widget-text">
+                        Menos gastos com tarefas repetitivas e contratações. Mais recursos para você investir no crescimento do seu negócio.
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Final -->
+            <div class="text-center mt-20" data-aos="fade-up" data-aos-delay="500">
+                <a href="#cta" class="btn-gradient inline-block px-10 py-4 text-lg font-semibold text-black rounded-lg relative z-10 transition-all duration-300">
+                    QUERO VER ESSES NÚMEROS NO MEU NEGÓCIO
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- DIVISOR DECORATIVO -->
+    <div class="section-divider"></div>
+
+    <!-- SEÇÃO FAQ -->
+    <section id="faq" class="faq-section section-spacing-xl relative z-10">
+        <div class="section-container">
+            <!-- Título Principal -->
+            <div class="text-center max-w-4xl mx-auto mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-6xl font-extrabold text-white leading-tight section-title-lg">
+                    <span class="gradient-text">Tudo o que você precisa saber</span>
+                </h2>
+                <p class="text-xl text-slate-400 leading-relaxed section-subtitle">
+                    Respondemos às principais dúvidas sobre nosso Agente de IA e como ele pode transformar seu negócio.
+                </p>
+            </div>
+
+            <!-- FAQ Container -->
+            <div class="faq-container">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Como exatamente o Agente de IA vai ajudar meu negócio?</span>
+                        <div class="faq-icon"></div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            De forma simples, ele atua como seu melhor vendedor, 24/7, dentro do WhatsApp. Ele responde 100% dos seus leads em segundos, qualifica os mais interessados, recupera vendas que seriam perdidas e, se necessário, agenda reuniões. O resultado é mais vendas, menos custos operacionais e mais tempo livre para você focar na estratégia.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Quanto tempo leva para o meu projeto ficar pronto?</span>
+                        <div class="faq-icon"></div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Nosso Método M.E.T.A. foi desenhado para ser ágil. O processo completo, da estratégia à ativação do seu Agente de IA, leva exatamente 15 dias.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Qual é a minha garantia ao contratar?</span>
+                        <div class="faq-icon"></div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Nossa maior garantia são os resultados e a transparência do nosso processo. Nosso modelo é focado em performance e temos total confiança no que entregamos. Durante nossa conversa, apresentaremos todos os termos e as garantias contratuais que asseguram que seu investimento está protegido e atrelado ao sucesso da implementação.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Como vocês criam a solução? É um robô pronto?</span>
+                        <div class="faq-icon"></div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            De forma alguma. Não usamos soluções de prateleira. A criação passa pelo Método M.E.T.A., onde mergulhamos no seu negócio para customizar o Agente. Ele é treinado com o seu tom de voz, seus processos e seus produtos para que a experiência seja autêntica e alinhada à sua marca.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 5 -->
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="500">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Como será nossa comunicação durante e após o projeto?</span>
+                        <div class="faq-icon"></div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            A comunicação é próxima e constante. Durante os 15 dias de implementação, temos pontos de contato claros. Após o lançamento, você terá um canal de suporte dedicado (via WhatsApp, Slack ou E-mail) para tirar dúvidas e solicitar ajustes, além de reuniões de acompanhamento para analisar a performance.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 6 -->
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="600">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>E se algo der errado com a automação?</span>
+                        <div class="faq-icon"></div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Nosso sistema é monitorado 24 horas por dia, 7 dias por semana. Qualquer anomalia gera um alerta imediato para nossa equipe de engenharia. Além disso, o Agente é treinado para identificar situações complexas que exijam intervenção e acionar um membro da sua equipe de forma inteligente. Você sempre está no controle.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 7 -->
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="700">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Preciso ter conhecimentos técnicos para usar a ferramenta?</span>
+                        <div class="faq-icon"></div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Absolutamente não. Nós cuidamos de 100% da complexidade técnica. Para você, a experiência é simples: as conversas acontecem no seu WhatsApp e os resultados aparecem no seu painel de controle. Seu único trabalho é gerenciar as novas oportunidades de venda que o Agente irá gerar.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Final -->
+            <div class="text-center mt-20" data-aos="fade-up" data-aos-delay="800">
+                <a href="#cta" class="btn-gradient inline-block px-10 py-4 text-lg font-semibold text-black rounded-lg relative z-10 transition-all duration-300">
+                    AINDA TEM DÚVIDAS? VAMOS CONVERSAR
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer-section section-spacing relative z-10">
+        <div class="section-container py-8 flex flex-col sm:flex-row items-center justify-between text-sm text-slate-400">
+            <p>&copy; 2025 Eloscope. Todos os direitos reservados.</p>
+            <div class="flex items-center gap-6 mt-4 sm:mt-0">
+                <a href="#" class="hover:text-cyan-400 transition-colors">Termos</a>
+                <a href="#" class="hover:text-cyan-400 transition-colors">Privacidade</a>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        // Form handling
-        const form = document.getElementById('webscrapingForm');
-        const submitBtn = document.getElementById('submitBtn');
+        console.log('🚀 [PILLAR-ANIMATION] Inicializando sistema corrigido...');
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('✅ [PILLAR-ANIMATION] DOM carregado');
+            
+            // FUNÇÃO PRINCIPAL DE ANIMAÇÃO DOS PILARES COM PARALLAX SIMPLES
+            function initPillarAnimations() {
+                const pillarCards = document.querySelectorAll('.pillar-item');
+                console.log(`📊 [PILLAR-ANIMATION] Cards encontrados: ${pillarCards.length}`);
+                
+                if (pillarCards.length === 0) {
+                    console.error('❌ [PILLAR-ANIMATION] ERRO: Nenhum card encontrado!');
+                    return;
+                }
 
-        // Toast notification function
-        function showToast(message, type = 'success') {
-            const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            toast.textContent = message;
-            
-            document.getElementById('toastContainer').appendChild(toast);
-            
-            // Show toast
-            setTimeout(() => toast.classList.add('show'), 100);
-            
-            // Hide and remove toast
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 300);
-            }, 4000);
-        }
+                // Desabilitar parallax em mobile
+                const isMobile = window.innerWidth <= 768;
+                if (isMobile) {
+                    console.log('📱 [PARALLAX] Mobile detectado, usando animação simples');
+                    initSimpleAnimation();
+                    return;
+                }
 
-        // Loading state management
-        function setLoading(isLoading) {
-            if (isLoading) {
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = `
-                    <div class="loading-spinner"></div>
-                    Processando...
-                `;
-            } else {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = `
-                    <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <path d="m21 21-4.35-4.35"></path>
-                    </svg>
-                    Pesquisar
-                `;
+                // Desktop: Parallax + Animação de entrada
+                initParallaxAnimation();
             }
-        }
 
-        // Form submission
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
+            // ANIMAÇÃO SIMPLES PARA MOBILE
+            function initSimpleAnimation() {
+                const pillarCards = document.querySelectorAll('.pillar-item');
+                
+                if ("IntersectionObserver" in window) {
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting) {
+                                const pillarNumber = entry.target.getAttribute('data-pillar');
+                                console.log(`👁️ [SIMPLE] Pilar ${pillarNumber} entrou na viewport`);
+                                
+                                const delay = (parseInt(pillarNumber) - 1) * 150;
+                                setTimeout(() => {
+                                    entry.target.classList.add('visible');
+                                    console.log(`✨ [SIMPLE] Pilar ${pillarNumber} animado`);
+                                }, delay);
+                                
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    }, {
+                        threshold: 0.15,
+                        rootMargin: '0px 0px -5% 0px'
+                    });
+                    
+                    pillarCards.forEach((card) => {
+                        observer.observe(card);
+                    });
+                } else {
+                    // Fallback
+                    pillarCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.classList.add('visible');
+                        }, index * 150);
+                    });
+                }
+            }
+
+            // ANIMAÇÃO COM PARALLAX PARA DESKTOP
+            function initParallaxAnimation() {
+                const pillarCards = document.querySelectorAll('.pillar-item');
+                const pillarSection = document.getElementById('pilares');
+                
+                // Velocidades diferentes para cada card (mais sutil)
+                const speeds = [0.95, 0.97, 1.0, 1.03, 1.05];
+
+                // Primeiro, animar entrada dos cards
+                if ("IntersectionObserver" in window) {
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting) {
+                                const pillarNumber = entry.target.getAttribute('data-pillar');
+                                const delay = (parseInt(pillarNumber) - 1) * 150;
+                                
+                                setTimeout(() => {
+                                    entry.target.classList.add('visible');
+                                    console.log(`✨ [PARALLAX] Pilar ${pillarNumber} animado`);
+                                }, delay);
+                                
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    }, {
+                        threshold: 0.15,
+                        rootMargin: '0px 0px -5% 0px'
+                    });
+                    
+                    pillarCards.forEach((card) => {
+                        observer.observe(card);
+                    });
+                }
+
+                // Depois, aplicar parallax durante o scroll
+                function updateParallax() {
+                    const scrollTop = window.pageYOffset;
+                    const sectionRect = pillarSection.getBoundingClientRect();
+                    const sectionTop = pillarSection.offsetTop;
+                    const windowHeight = window.innerHeight;
+
+                    // Verificar se a seção está na viewport
+                    if (sectionRect.bottom < 0 || sectionRect.top > windowHeight) {
+                        return;
+                    }
+
+                    pillarCards.forEach((card, index) => {
+                        if (!card.classList.contains('visible')) return;
+                        
+                        const speed = speeds[index];
+                        const cardRect = card.getBoundingClientRect();
+                        
+                        // Calcular movimento parallax sutil
+                        const parallaxY = (scrollTop - sectionTop) * (1 - speed) * 0.1; // Movimento muito sutil
+                        
+                        // Aplicar transformação
+                        card.style.transform = `translateY(${parallaxY}px)`;
+                    });
+                }
+
+                // Throttle para performance
+                let ticking = false;
+                function requestTick() {
+                    if (!ticking) {
+                        requestAnimationFrame(updateParallax);
+                        ticking = true;
+                        setTimeout(() => { ticking = false; }, 16);
+                    }
+                }
+
+                window.addEventListener('scroll', requestTick);
+                console.log('🎬 [PARALLAX] Sistema de parallax sutil inicializado!');
+            }
             
-            setLoading(true);
+            // AOS Init para outros elementos
+            const aosElements = document.querySelectorAll('[data-aos]');
+            if ("IntersectionObserver" in window) {
+                const aosObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('aos-animate');
+                            aosObserver.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.1,
+                    rootMargin: '50px'
+                });
+
+                aosElements.forEach(el => aosObserver.observe(el));
+            } else {
+                aosElements.forEach(el => el.classList.add('aos-animate'));
+            }
+
+            // INICIALIZAR SISTEMAS
+            initPillarAnimations();
+
+            // Smooth Scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        const headerOffset = 80;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            });
+
+            // Header Scroll
+            const header = document.getElementById('header');
+            let headerTicking = false;
             
-            // Get form data
-            const formData = new FormData(form);
-            const data = {
-                cidade: formData.get('cidade'),
-                estado: formData.get('estado'),
-                termosDesPesquisa: formData.get('termosDesPesquisa'),
-                numeroLugares: formData.get('numeroLugares')
-            };
+            function updateHeader() {
+                header.classList.toggle('header-scrolled', window.scrollY > 50);
+                headerTicking = false;
+            }
             
-            try {
-                const response = await fetch('https://n8n.enovas.com.br/webhook/webscraping', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
+            window.addEventListener('scroll', () => {
+                if (!headerTicking) {
+                    requestAnimationFrame(updateHeader);
+                    headerTicking = true;
+                }
+            });
+
+            console.log('🎉 [PILLAR-ANIMATION] Sistema inicializado com SUCESSO!');
+        });
+
+        // SISTEMA DE ANIMAÇÃO DO PROCESSO M.E.T.A.
+        function initProcessoAnimations() {
+            const metaItems = document.querySelectorAll('.meta-item');
+            
+            if (metaItems.length === 0) return;
+            
+            if ("IntersectionObserver" in window) {
+                const metaObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            const items = Array.from(metaItems);
+                            const index = items.indexOf(entry.target);
+                            const delay = index * 100;
+                            
+                            setTimeout(() => {
+                                entry.target.classList.add('aos-animate');
+                            }, delay);
+                            
+                            metaObserver.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.2,
+                    rootMargin: '0px 0px -10% 0px'
                 });
                 
-                if (response.ok) {
-                    showToast('Pesquisa iniciada com sucesso!', 'success');
-                    form.reset(); // Reset form
-                } else {
-                    throw new Error('Erro na requisição');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                showToast('Ocorreu um erro ao iniciar a pesquisa. Tente novamente.', 'error');
-            } finally {
-                setLoading(false);
+                metaItems.forEach((item) => {
+                    metaObserver.observe(item);
+                });
+            } else {
+                metaItems.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.classList.add('aos-animate');
+                    }, index * 100);
+                });
             }
-        });
+        }
 
-        // Form validation feedback
-        const inputs = document.querySelectorAll('.form-input, .form-select');
-        inputs.forEach(input => {
-            input.addEventListener('blur', function() {
-                if (this.checkValidity()) {
-                    this.style.borderColor = 'rgba(0, 255, 0, 0.3)';
-                } else {
-                    this.style.borderColor = 'rgba(255, 0, 0, 0.5)';
+        // Inicializar sistema M.E.T.A.
+        initProcessoAnimations();
+
+        // FAQ Toggle Function
+        function toggleFAQ(button) {
+            const faqItem = button.parentElement;
+            const isActive = faqItem.classList.contains('active');
+            
+            // Fechar todos os outros FAQs
+            document.querySelectorAll('.faq-item.active').forEach(item => {
+                if (item !== faqItem) {
+                    item.classList.remove('active');
                 }
             });
             
-            input.addEventListener('input', function() {
-                if (this.checkValidity()) {
-                    this.style.borderColor = 'rgba(0, 255, 255, 0.3)';
-                }
-            });
-        });
+            // Toggle do FAQ atual
+            if (isActive) {
+                faqItem.classList.remove('active');
+            } else {
+                faqItem.classList.add('active');
+            }
+        }
+
+        // Logs de separação visual
+        console.log('[SectionSeparation] 🎨 Separação visual entre seções implementada');
+        console.log('[SectionSeparation] ✅ Backgrounds alternados aplicados');
+        console.log('[SectionSeparation] 📏 Espaçamentos generosos configurados');
+        console.log('[SectionSeparation] 🎯 Divisores decorativos adicionados');
+        console.log('[SectionSeparation] 📱 Responsividade mobile-first mantida');
     </script>
 </body>
 </html>
