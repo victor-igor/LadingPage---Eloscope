@@ -1,0 +1,41 @@
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="mayaGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06B6D4;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3B82F6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B5CF6;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glowMaya">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/> 
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background Circle -->
+  <circle cx="150" cy="150" r="140" fill="url(#mayaGradient)" opacity="0.1"/>
+  
+  <!-- Main Avatar Circle -->
+  <circle cx="150" cy="120" r="80" fill="url(#mayaGradient)" filter="url(#glowMaya)"/>
+  
+  <!-- Face Features -->
+  <circle cx="135" cy="110" r="3" fill="white" opacity="0.9"/>
+  <circle cx="165" cy="110" r="3" fill="white" opacity="0.9"/>
+  <path d="M 140 130 Q 150 135 160 130" stroke="white" stroke-width="2" fill="none" opacity="0.8"/>
+  
+  <!-- Analytics Symbol -->
+  <g transform="translate(150,220)">
+    <rect x="-25" y="-5" width="8" height="15" fill="#06B6D4" opacity="0.8"/>
+    <rect x="-10" y="-10" width="8" height="20" fill="#3B82F6" opacity="0.8"/>
+    <rect x="5" y="-15" width="8" height="25" fill="#8B5CF6" opacity="0.8"/>
+    <rect x="20" y="-8" width="8" height="18" fill="#06B6D4" opacity="0.8"/>
+    <!-- Trend line -->
+    <path d="M -25 5 L -10 -5 L 5 -10 L 20 -2" stroke="white" stroke-width="2" fill="none" opacity="0.9"/>
+  </g>
+  
+  <!-- Maya Text -->
+  <text x="150" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="url(#mayaGradient)">MAYA</text>
+  <text x="150" y="290" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#6B7280">A Estrategista</text>
+</svg>

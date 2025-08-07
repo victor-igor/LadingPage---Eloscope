@@ -1,0 +1,48 @@
+<svg width="600" height="220" viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <style>
+      .team-circle {
+        transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+      }
+      .team-circle:hover {
+        transform: scale(1.05) translateY(-5px);
+        filter: drop-shadow(0 10px 15px rgba(0, 255, 255, 0.2));
+      }
+    </style>
+    <clipPath id="clip-circle">
+      <circle cx="100" cy="100" r="90" />
+    </clipPath>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="coloredBlur" />
+      <feMerge>
+        <feMergeNode in="coloredBlur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Fundo sutil para contexto -->
+  <rect width="600" height="220" fill="none" />
+
+  <!-- Iris (Esquerda) -->
+  <g class="team-circle" transform="translate(20, 10)">
+    <circle cx="100" cy="100" r="92" fill="#ff00ff" style="opacity: 0.8;" />
+    <image xlink:href="iris-real.jpg" x="10" y="10" width="180" height="180" clip-path="url(#clip-circle)" />
+    <circle cx="100" cy="100" r="90" stroke="#ff00ff" stroke-width="4" fill="none" />
+  </g>
+
+  <!-- Luna (Centro) -->
+  <g class="team-circle" transform="translate(200, 10)">
+    <circle cx="100" cy="100" r="92" fill="#00ffff" style="opacity: 0.8;" />
+    <image xlink:href="luna-real.jpg" x="10" y="10" width="180" height="180" clip-path="url(#clip-circle)" />
+    <circle cx="100" cy="100" r="90" stroke="#00ffff" stroke-width="4" fill="none" />
+  </g>
+
+  <!-- Maya (Direita) -->
+  <g class="team-circle" transform="translate(380, 10)">
+    <circle cx="100" cy="100" r="92" fill="#00aaff" style="opacity: 0.8;" />
+    <image xlink:href="maya-real.jpg" x="10" y="10" width="180" height="180" clip-path="url(#clip-circle)" />
+    <circle cx="100" cy="100" r="90" stroke="#00aaff" stroke-width="4" fill="none" />
+  </g>
+
+</svg>

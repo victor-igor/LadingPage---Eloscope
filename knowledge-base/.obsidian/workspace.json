@@ -1,0 +1,187 @@
+{
+  "main": {
+    "id": "88fe6abd689edca9",
+    "type": "split",
+    "children": [
+      {
+        "id": "c09bc8eaaaae0da7",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "96b04bcc5c7046ca",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "Nova aba"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "b00f29c898ed40d7",
+    "type": "split",
+    "children": [
+      {
+        "id": "49c4df5ef2f0d92e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "10cacc7c832cc674",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Explorador de arquivos"
+            }
+          },
+          {
+            "id": "98dd8986569c0812",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Procurar"
+            }
+          },
+          {
+            "id": "29d0fc0cb4183bb6",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Marcadores"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "3db62df1febc9aa8",
+    "type": "split",
+    "children": [
+      {
+        "id": "8c2b28c7e6cb80c4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "dca1190edc78d5d6",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "b63665763c3e224b",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Links de saída"
+            }
+          },
+          {
+            "id": "b18ed0886ba468a5",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "b648ebd90c976edc",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Sumário"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Abrir a troca rápida": false,
+      "graph:Abrir visualização em gráfico": false,
+      "canvas:Criar novo canvas": false,
+      "daily-notes:Abrir a nota de hoje": false,
+      "templates:Inserir modelo": false,
+      "command-palette:Abrir paleta de comandos": false
+    }
+  },
+  "active": "96b04bcc5c7046ca",
+  "lastOpenFiles": [
+    "referencia/barbaAgência de IA _ Agentes de IA Empresariais 24_7 _ Brabaflow.pdf",
+    "branding/time-ai-eloscope.md",
+    "branding/Brading.md",
+    "branding/Tom de VOZ.md",
+    "core/Flowchart.md",
+    "core/PRD - Site Eloscope.md",
+    "referencia/braba-Sobre nós.pdf",
+    "referencia",
+    "pasta sem título",
+    "assets/Syne/static/Syne-SemiBold.ttf",
+    "assets/Syne/static/Syne-Regular.ttf",
+    "assets/Syne/static/Syne-Medium.ttf",
+    "assets/Syne/static/Syne-ExtraBold.ttf",
+    "assets/Syne/static/Syne-Bold.ttf",
+    "assets/Syne/README.txt",
+    "assets/Logos/EloScope - Logo.png",
+    "assets/Logos/EloScope - Logotipo.png",
+    "assets/Logos/Logotipo - EloScope - completo.png",
+    "branding/Comunicação Verbal e Não-Verbal - Eloscope.md",
+    "core/Sitemap Detalhado - Site Eloscope.md"
+  ]
+}

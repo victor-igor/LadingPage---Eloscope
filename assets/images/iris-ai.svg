@@ -1,0 +1,47 @@
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="irisGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10B981;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#059669;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#047857;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glowIris">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/> 
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background Circle -->
+  <circle cx="150" cy="150" r="140" fill="url(#irisGradient)" opacity="0.1"/>
+  
+  <!-- Main Avatar Circle -->
+  <circle cx="150" cy="120" r="80" fill="url(#irisGradient)" filter="url(#glowIris)"/>
+  
+  <!-- Face Features -->
+  <circle cx="135" cy="110" r="3" fill="white" opacity="0.9"/>
+  <circle cx="165" cy="110" r="3" fill="white" opacity="0.9"/>
+  <path d="M 140 130 Q 150 135 160 130" stroke="white" stroke-width="2" fill="none" opacity="0.8"/>
+  
+  <!-- Implementation Symbol (Gear) -->
+  <g transform="translate(150,220)">
+    <circle cx="0" cy="0" r="15" fill="none" stroke="#10B981" stroke-width="3" opacity="0.8"/>
+    <circle cx="0" cy="0" r="6" fill="#059669" opacity="0.9"/>
+    <!-- Gear teeth -->
+    <rect x="-2" y="-18" width="4" height="6" fill="#10B981" opacity="0.8"/>
+    <rect x="-2" y="12" width="4" height="6" fill="#10B981" opacity="0.8"/>
+    <rect x="12" y="-2" width="6" height="4" fill="#10B981" opacity="0.8"/>
+    <rect x="-18" y="-2" width="6" height="4" fill="#10B981" opacity="0.8"/>
+    <!-- Diagonal teeth -->
+    <rect x="10" y="-12" width="4" height="4" fill="#10B981" opacity="0.8" transform="rotate(45 12 -10)"/>
+    <rect x="-14" y="-12" width="4" height="4" fill="#10B981" opacity="0.8" transform="rotate(-45 -12 -10)"/>
+    <rect x="10" y="8" width="4" height="4" fill="#10B981" opacity="0.8" transform="rotate(-45 12 10)"/>
+    <rect x="-14" y="8" width="4" height="4" fill="#10B981" opacity="0.8" transform="rotate(45 -12 10)"/>
+  </g>
+  
+  <!-- Iris Text -->
+  <text x="150" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="url(#irisGradient)">IRIS</text>
+  <text x="150" y="290" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#6B7280">A Implementadora</text>
+</svg>
